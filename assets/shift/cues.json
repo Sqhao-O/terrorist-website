@@ -1,0 +1,371 @@
+{
+  "liang-intro": {
+    "duration": 6.46,
+    "cues": [
+      {
+        "at": 0.21,
+        "end": 2.386,
+        "speaker": "老梁",
+        "text": "右边那个绿，"
+      },
+      {
+        "at": 2.616,
+        "end": 6.18,
+        "speaker": "老梁",
+        "text": "麻烦照邮筒盖子底下调。"
+      }
+    ]
+  },
+  "liang-sign": {
+    "duration": 9.048,
+    "cues": [
+      {
+        "at": 0.21,
+        "end": 2.405,
+        "speaker": "老梁",
+        "text": "那晚她没来。"
+      },
+      {
+        "at": 2.955,
+        "end": 5.528,
+        "speaker": "老梁",
+        "text": "我怕底片淋湿，"
+      },
+      {
+        "at": 5.758,
+        "end": 8.768,
+        "speaker": "老梁",
+        "text": "替她签了个本人。"
+      }
+    ]
+  },
+  "mother-intro": {
+    "duration": 5.91,
+    "cues": [
+      {
+        "at": 0.21,
+        "end": 1.882,
+        "speaker": "母亲",
+        "text": "那根线留着。"
+      },
+      {
+        "at": 2.342,
+        "end": 3.739,
+        "speaker": "母亲",
+        "text": "摸到线头，"
+      },
+      {
+        "at": 3.949,
+        "end": 5.63,
+        "speaker": "母亲",
+        "text": "才算回了家。"
+      }
+    ]
+  },
+  "mother-stop": {
+    "duration": 1.974,
+    "cues": [
+      {
+        "at": 0.21,
+        "end": 1.424,
+        "speaker": "母亲",
+        "text": "别替我答。"
+      }
+    ]
+  },
+  "home-trial": {
+    "duration": 11.517,
+    "cues": [
+      {
+        "at": 0.65,
+        "end": 2.571,
+        "speaker": "父亲",
+        "text": "这是谁？"
+      },
+      {
+        "at": 3.741,
+        "end": 4.738,
+        "speaker": "母亲",
+        "text": "她是……"
+      },
+      {
+        "at": 5.488,
+        "end": 7.243,
+        "speaker": "母亲",
+        "text": "等我想一想。"
+      },
+      {
+        "at": 8.013,
+        "end": 9.012,
+        "speaker": "母亲",
+        "text": "她叫……"
+      },
+      {
+        "at": 8.842,
+        "end": 10.657,
+        "speaker": "柜员",
+        "text": "已按原样交付。"
+      }
+    ]
+  },
+  "xu-day": {
+    "duration": 13.109,
+    "cues": [
+      {
+        "at": 0.22,
+        "end": 0.37,
+        "speaker": "声响",
+        "text": "［听筒接起］"
+      },
+      {
+        "at": 0.78,
+        "end": 3.067,
+        "speaker": "许棠",
+        "text": "拾相修复所，您好。"
+      },
+      {
+        "at": 3.567,
+        "end": 7.001,
+        "speaker": "许棠",
+        "text": "好的。照片放在一号柜，凭单来取。"
+      },
+      {
+        "at": 7.541,
+        "end": 8.631,
+        "speaker": "许棠",
+        "text": "您先挂。"
+      },
+      {
+        "at": 9.101,
+        "end": 9.518,
+        "speaker": "声响",
+        "text": "［叉簧落下；听筒外壳磕在座上，线路底噪消失］"
+      },
+      {
+        "at": 10.461,
+        "end": 12.289,
+        "speaker": "许棠",
+        "text": "辛苦你接班。"
+      }
+    ],
+    "hangup": 9.101,
+    "afterVoice": 10.461
+  },
+  "xu-handover": {
+    "duration": 7.879,
+    "cues": [
+      {
+        "at": 0.21,
+        "end": 1.862,
+        "speaker": "许棠",
+        "text": "请本人签收。"
+      },
+      {
+        "at": 3.092,
+        "end": 4.32,
+        "speaker": "许棠",
+        "text": "你不接，"
+      },
+      {
+        "at": 4.56,
+        "end": 7.179,
+        "speaker": "许棠",
+        "text": "我就只能再叫一次。"
+      }
+    ]
+  },
+  "xu-empty": {
+    "duration": 2.37,
+    "cues": [
+      {
+        "at": 0.21,
+        "end": 1.89,
+        "speaker": "许棠",
+        "text": "椅子是空的。"
+      }
+    ]
+  },
+  "xu-person": {
+    "duration": 2.94,
+    "cues": [
+      {
+        "at": 0.21,
+        "end": 2.46,
+        "speaker": "许棠",
+        "text": "椅子上坐着一个人。"
+      }
+    ]
+  },
+  "xu-unsure": {
+    "duration": 2.333,
+    "cues": [
+      {
+        "at": 0.21,
+        "end": 1.853,
+        "speaker": "许棠",
+        "text": "我看不清楚。"
+      }
+    ]
+  },
+  "xu-extreme": {
+    "duration": 7.28,
+    "cues": [
+      {
+        "at": 0.21,
+        "end": 3.193,
+        "speaker": "许棠",
+        "text": "你把线拖到最左的时候，"
+      },
+      {
+        "at": 3.573,
+        "end": 6.56,
+        "speaker": "许棠",
+        "text": "我终于看见柜台外面了。"
+      }
+    ]
+  },
+  "ending-order": {
+    "duration": 2.568,
+    "cues": [
+      {
+        "at": 0.21,
+        "end": 1.988,
+        "speaker": "许棠",
+        "text": "辛苦你接班。"
+      }
+    ]
+  },
+  "ending-restore": {
+    "duration": 7.13,
+    "cues": [
+      {
+        "at": 0.21,
+        "end": 1.568,
+        "speaker": "阿禾",
+        "text": "爸，是我。"
+      },
+      {
+        "at": 2.128,
+        "end": 3.967,
+        "speaker": "阿禾",
+        "text": "你不用认照片，"
+      },
+      {
+        "at": 4.177,
+        "end": 6.49,
+        "speaker": "阿禾",
+        "text": "我过来给你摸摸线。"
+      }
+    ]
+  },
+  "ending-both": {
+    "duration": 4.209,
+    "cues": [
+      {
+        "at": 0.21,
+        "end": 1.594,
+        "speaker": "母亲",
+        "text": "她叫阿禾。"
+      },
+      {
+        "at": 2.174,
+        "end": 3.589,
+        "speaker": "母亲",
+        "text": "两张我都要。"
+      }
+    ]
+  },
+  "split-mother": {
+    "duration": 12.9,
+    "cues": [
+      {
+        "at": 0.48,
+        "end": 2.391,
+        "speaker": "母亲",
+        "text": "那根线是我系的。"
+      },
+      {
+        "at": 3.471,
+        "end": 6.277,
+        "speaker": "母亲",
+        "text": "她摸到线头，手就松了。"
+      },
+      {
+        "at": 7.64,
+        "end": 12.44,
+        "speaker": "声响",
+        "text": "［两次呼吸，中间有同一下碰桌声］"
+      }
+    ],
+    "alignedBreath": [
+      7.64,
+      12.44
+    ]
+  },
+  "split-clerk": {
+    "duration": 12.9,
+    "cues": [
+      {
+        "at": 0.82,
+        "end": 3.498,
+        "speaker": "柜员",
+        "text": "请说，椅子从来就是空的。"
+      },
+      {
+        "at": 4.548,
+        "end": 5.893,
+        "speaker": "柜员",
+        "text": "别说后来。"
+      },
+      {
+        "at": 7.64,
+        "end": 12.44,
+        "speaker": "声响",
+        "text": "［两次呼吸，中间有同一下碰桌声］"
+      }
+    ],
+    "alignedBreath": [
+      7.64,
+      12.44
+    ]
+  },
+  "bell-counter": {
+    "duration": 2.35,
+    "cues": [
+      {
+        "at": 0.15,
+        "end": 2.079,
+        "speaker": "声响",
+        "text": "［柜台表面的按铃，簧片轻轻回位］"
+      }
+    ]
+  },
+  "bell-inside": {
+    "duration": 2.55,
+    "cues": [
+      {
+        "at": 0.15,
+        "end": 2.241,
+        "speaker": "声响",
+        "text": "［同一枚铃声，从木柜里面传出来］"
+      }
+    ]
+  },
+  "lens-knock": {
+    "duration": 1.65,
+    "cues": [
+      {
+        "at": 0.2,
+        "end": 0.33,
+        "speaker": "声响",
+        "text": "［镜筒前缘挨了一下轻叩］"
+      },
+      {
+        "at": 0.82,
+        "end": 0.958,
+        "speaker": "声响",
+        "text": "［又一下，离镜片更近］"
+      }
+    ]
+  }
+}

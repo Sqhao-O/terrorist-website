@@ -8,19 +8,23 @@
       name="description"
       content="拾相修复所，南桥巷一家手工影像工作室。查看老照片修复案例，翻阅工单与底片档案。"
     />
-    <title>拾相修复所 · 老照片修复与底片档案</title>
+    <title>拾相修复所 · 老照片与底片修复</title>
     <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
     <link rel="preload" as="image" href="./assets/album/front.webp" fetchpriority="high" />
-    <link rel="stylesheet" href="./studio.css" />
+    <link rel="stylesheet" href="./studio.css?v=2" />
     <link rel="stylesheet" href="./negative.css" />
     <link rel="stylesheet" href="./tape.css" />
     <link rel="stylesheet" href="./letters.css" />
     <link rel="stylesheet" href="./recall.css" />
-    <script defer src="./studio.js"></script>
-    <script defer src="./negative.js"></script>
-    <script defer src="./tape.js"></script>
+    <link rel="stylesheet" href="./shift.css" />
+    <script defer src="./playbook.js"></script>
+    <script defer src="./sound-desk.js"></script>
+    <script defer src="./shift.js"></script>
+    <script defer src="./studio.js?v=2"></script>
+    <script defer src="./negative.js?v=2"></script>
+    <script defer src="./tape.js?v=2"></script>
     <script defer src="./letters.js"></script>
-    <script defer src="./recall.js"></script>
+    <script defer src="./recall.js?v=2"></script>
   </head>
   <body>
     <svg class="sprite" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
@@ -59,9 +63,10 @@
         >
         <nav class="main-nav" aria-label="主导航">
           <a href="#top" aria-current="page">首页</a><a href="#cases">修复案例</a
-          ><button data-service>服务与流程</button><a href="#intake">工单档案</a>
+          ><button data-service>服务与流程</button><a href="#today" data-archive-link>工单档案</a>
         </nav>
         <div class="head-actions">
+          <button class="header-sound" data-master aria-pressed="false">声音关</button>
           <button class="query" data-query>
             <svg class="ico"><use href="#search" /></svg>查询工单</button
           ><button class="menu" aria-controls="compact-nav" aria-expanded="false" aria-label="展开导航">
@@ -71,7 +76,8 @@
       </div>
       <nav id="compact-nav" aria-label="移动导航" hidden>
         <a href="#top">首页</a><a href="#cases">修复案例</a><button data-service>服务与流程</button
-        ><a href="#intake">工单档案</a>
+        ><a href="#today" data-archive-link>工单档案</a><button data-master>声音关</button
+        ><button data-restart>重开本卷</button>
       </nav>
     </header>
     <main>
@@ -175,177 +181,400 @@
         </div>
       </section>
 
-      <section class="intake story-part" id="intake" aria-labelledby="intake-title">
+      <aside id="workbar" class="workbar" aria-label="柜台操作">
         <div class="frame">
-          <div class="section-kicker"><i></i>PROOF SHEET &nbsp;/&nbsp; 27-B</div>
-          <h2 id="intake-title">交件前，帮我们校一次样。</h2>
-          <div class="intake-grid">
-            <div class="proof-board">
-              <div class="proof-front">
+          <span><i></i><b id="shift-label">白班营业</b><time id="shift-clock">09:00</time></span>
+          <div>
+            <button data-index>工单夹</button><button data-master aria-pressed="false">声音关</button
+            ><button data-restart>重开</button>
+          </div>
+        </div>
+      </aside>
+      <div id="day-shift">
+        <section class="work-section day-paper" id="today">
+          <div class="frame">
+            <div class="section-kicker"><i></i>DAY SHIFT / 014-A</div>
+            <h2>盖子底下的绿</h2>
+            <div class="scene-grid">
+              <figure class="work-figure">
                 <img
-                  src="./assets/album/front.webp"
-                  alt="未经本轮校正的合影，右手边的藤椅空着"
+                  src="./assets/album/street.webp"
+                  id="green-photo"
+                  alt="邮筒盖底保留着避光的绿漆"
                   loading="lazy"
-                /><small>南桥巷旧照相馆留底　1998.11.29</small>
+                />
+                <figcaption>老梁寄存 · 避光处色样</figcaption>
+              </figure>
+              <div data-script="green"></div>
+            </div>
+            <div class="toolcard">
+              <h3>给邮筒定一份色样</h3>
+              <label for="green-tone">比对盖底的绿漆</label
+              ><input type="range" min="0" max="100" value="26" id="green-tone" /><output
+                id="green-value"
+              ></output>
+              <button class="work-action" id="seal-green">封存一号色样</button
+              ><button data-voice="liang-intro">听老梁说</button>
+              <p id="green-slip" role="status"></p>
+            </div>
+          </div>
+        </section>
+        <section class="intake story-part" id="intake" aria-labelledby="intake-title">
+          <div class="frame">
+            <div class="section-kicker"><i></i>PROOF SHEET &nbsp;/&nbsp; 27-B</div>
+            <h2 id="intake-title">交件前，帮我们校一次样。</h2>
+            <div data-script="thread"></div>
+            <div class="intake-grid">
+              <div class="proof-board">
+                <div class="proof-front">
+                  <img
+                    src="./assets/album/front.webp"
+                    alt="未经本轮校正的合影，右手边的藤椅空着"
+                    loading="lazy"
+                  /><small>南桥巷旧照相馆留底　1998.11.29</small>
+                </div>
+                <div class="proof-back" hidden>
+                  <span class="postmark">南桥<br />1998</span
+                  ><span class="verso-label">2004 年加洗附记 · 蓝色圆珠笔</span>
+                  <p>洗两张。一张给他，<br />一张放在那把椅子上。</p>
+                  <small>右扶手上的红线千万别修掉，她摸着那个才知道坐哪边。</small>
+                </div>
+                <button class="flip print-button" aria-pressed="false">
+                  <svg class="ico"><use href="#flip" /></svg><span>翻看照片背面</span>
+                </button>
               </div>
-              <div class="proof-back" hidden>
-                <span class="postmark">南桥<br />1998</span
-                ><span class="verso-label">2004 年加洗附记 · 蓝色圆珠笔</span>
-                <p>洗两张。一张给他，<br />一张放在那把椅子上。</p>
-                <small>右扶手上的红线千万别修掉，她摸着那个才知道坐哪边。</small>
+              <div class="memory-form">
+                <span class="work-label">工单 27-B · 校样第一联</span>
+                <h3>右手边那把藤椅，<br />你第一眼看见了什么？</h3>
+                <p>老师傅习惯先记第一眼，再拿放大镜。第一联落笔后留底，稍后可以取出来逐字核对。</p>
+                <fieldset class="observations">
+                  <legend>把你的观察写进第一联</legend>
+                  <button data-observe="empty">椅子是空的。</button
+                  ><button data-observe="person">椅子上坐着一个人。</button
+                  ><button data-observe="unsure">我看不清楚。</button>
+                </fieldset>
+                <button class="work-action" id="seal-thread">保留红线，封存二号原片</button
+                ><button data-voice="mother-intro">听母亲说</button>
+                <p id="observation-status" class="writing-status" aria-live="polite">也可以把第一联留白。</p>
               </div>
-              <button class="flip print-button" aria-pressed="false">
-                <svg class="ico"><use href="#flip" /></svg><span>翻看照片背面</span>
+            </div>
+          </div>
+        </section>
+        <section class="work-section day-paper" id="day-tape">
+          <div class="frame">
+            <div class="section-kicker"><i></i>DAY SHIFT / 031-C</div>
+            <h2>把尾音留下</h2>
+            <div class="scene-grid">
+              <figure class="work-figure">
+                <img src="./assets/shift/tape-day.webp" alt="白班录音机，两只普通带轮" loading="lazy" />
+                <figcaption>交班来电 · 工作副本</figcaption>
+              </figure>
+              <div data-script="hangup"></div>
+            </div>
+            <div class="toolcard">
+              <h3>给真正的挂机点做记号</h3>
+              <button data-voice="xu-day">播放柜台来电</button>
+              <details>
+                <summary>读逐字稿与声音位置</summary>
+                <div data-transcript="xu-day"></div>
+              </details>
+              <div class="option-row">
+                <button data-cutpoint="plastic">听筒碰底座</button
+                ><button data-cutpoint="line">叉簧落下，底噪消失</button
+                ><button data-cutpoint="voice">最后一句说完</button>
+              </div>
+              <p id="cut-slip" role="status"></p>
+            </div>
+          </div>
+        </section>
+        <section id="day-close" class="work-section shift-stamp">
+          <div class="frame">
+            <div class="section-kicker"><i></i>COUNTER COPY</div>
+            <h2>收据的骑缝</h2>
+            <div class="scene-grid">
+              <div class="ticketboard">
+                <h3>白班留件单</h3>
+                <div data-receipts></div>
+                <button class="work-action" id="close-day">盖交班章</button>
+                <p>未经手的栏位留空。继续下翻，由柜台结班。</p>
+              </div>
+              <div data-script="stamp"></div>
+            </div>
+          </div>
+        </section>
+        <div id="shift-seam" aria-hidden="true"></div>
+      </div>
+      <div id="night-shift" hidden>
+        <section id="post" class="work-section night-moss">
+          <div class="frame">
+            <div class="section-kicker"><i></i>NIGHT SHIFT / 014-A</div>
+            <h2>他站在哪一边</h2>
+            <div class="scene-grid">
+              <div class="bench-column">
+                <figure class="work-figure evidence-photo">
+                  <img
+                    id="post-photo"
+                    src="./assets/album/street.webp"
+                    alt="夜班送回的一号街景"
+                    loading="lazy"
+                  />
+                  <figcaption id="post-caption">街景背后藏着第二张照片。</figcaption>
+                </figure>
+                <div class="toolcard">
+                  <h3>旧邮局玻璃</h3>
+                  <button id="focus-post" class="work-action">第一次检查玻璃</button
+                  ><button data-voice="liang-sign" id="play-sign" hidden>听老梁的证词</button>
+                  <p id="post-note" role="status"></p>
+                </div>
+              </div>
+              <div data-script="glass"></div>
+            </div>
+          </div>
+        </section>
+        <section class="carbon story-part" id="carbon" aria-labelledby="carbon-title">
+          <div class="frame carbon-grid">
+            <div class="carbon-copy">
+              <div class="section-kicker"><i></i>CARBON DUPLICATE</div>
+              <h2 id="carbon-title">同一支笔，<br />两种笔迹。</h2>
+              <p>
+                柜台底下夹着第二联。日期是 1998 年 11 月 29
+                日。把它和刚才的留底放在一起，最下面那行字没有对齐。
+              </p>
+              <div data-script="carbon"></div>
+              <button class="outline-action" id="lift-carbon" aria-pressed="false">揭开复写纸</button>
+            </div>
+            <div class="carbon-stack">
+              <div class="carbon-slip">
+                <div class="slip-top"><b>南桥照相馆</b><span>复写联 · 27-B</span></div>
+                <div class="slip-row"><span>托洗物</span><b>院中合影　一底两印</b></div>
+                <div class="slip-row"><span>第一联原话</span><b id="first-quote">此栏未落笔</b></div>
+                <div class="slip-row under-row">
+                  <span>第二联存档</span><b id="second-quote">隔着蜡纸，墨迹透不过来。</b>
+                </div>
+                <p id="carbon-result" aria-live="polite">复写纸的黑面朝上。墨本应落在另一面。</p>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="work-section night-moss compact">
+          <div class="frame toolcard">
+            <h3>第二次叫号，按哪一栏叫人？</h3>
+            <div class="option-row">
+              <button data-signer="liang">副联改记「代收人老梁」</button
+              ><button data-signer="self">副联仍记「本人」</button>
+            </div>
+            <p id="sign-slip" role="status"></p>
+          </div>
+        </section>
+        <section class="work-section frame-room" id="family">
+          <div class="frame">
+            <div class="section-kicker"><i></i>NIGHT SHIFT / 027-B</div>
+            <h2>母亲的两只相框</h2>
+            <p id="second-call"></p>
+            <div data-script="frames"></div>
+            <div class="frame-pair">
+              <button data-slot="father">
+                <span>父亲 · 窄框</span><img alt="" hidden /><small>等待装片</small></button
+              ><button data-slot="daughter">
+                <span>阿禾 · 宽框</span><img alt="" hidden /><small>等待装片</small>
               </button>
             </div>
-            <div class="memory-form">
-              <span class="work-label">工单 27-B · 校样第一联</span>
-              <h3>右手边那把藤椅，<br />你第一眼看见了什么？</h3>
-              <p>老师傅习惯先记第一眼，再拿放大镜。第一联落笔后留底，稍后可以取出来逐字核对。</p>
-              <fieldset class="observations">
-                <legend>把你的观察写进第一联</legend>
-                <button data-observe="empty">椅子是空的。</button
-                ><button data-observe="person">椅子上坐着一个人。</button
-                ><button data-observe="unsure">我看不清楚。</button>
-              </fieldset>
-              <p id="observation-status" class="writing-status" aria-live="polite">
-                也可以先不落笔，往下翻。
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-      <section class="carbon story-part" id="carbon" aria-labelledby="carbon-title">
-        <div class="frame carbon-grid">
-          <div class="carbon-copy">
-            <div class="section-kicker"><i></i>CARBON DUPLICATE</div>
-            <h2 id="carbon-title">同一支笔，<br />两种笔迹。</h2>
-            <p>
-              柜台底下夹着第二联。日期是 1998 年 11 月 29 日。把它和刚才的留底放在一起，最下面那行字没有对齐。
-            </p>
-            <button class="outline-action" id="lift-carbon" aria-pressed="false">揭开复写纸</button>
-          </div>
-          <div class="carbon-stack">
-            <div class="carbon-slip">
-              <div class="slip-top"><b>南桥照相馆</b><span>复写联 · 27-B</span></div>
-              <div class="slip-row"><span>托洗物</span><b>院中合影　一底两印</b></div>
-              <div class="slip-row"><span>第一联原话</span><b id="first-quote">此栏未落笔</b></div>
-              <div class="slip-row under-row">
-                <span>第二联存档</span><b id="second-quote">隔着蜡纸，墨迹透不过来。</b>
+            <div class="toolcard">
+              <h3>先选校样，再选相框</h3>
+              <div class="option-row">
+                <button data-print="empty">空椅照</button><button data-print="three">三人照</button
+                ><button id="seal-frames" class="work-action">扣紧两块背板</button>
               </div>
-              <p id="carbon-result" aria-live="polite">复写纸的黑面朝上。墨本应落在另一面。</p>
+              <p id="frame-slip" role="status"></p>
+              <button data-voice="home-trial">听家里的试播</button>
+              <details>
+                <summary>试播逐字稿</summary>
+                <div data-transcript="home-trial"></div>
+              </details>
             </div>
           </div>
-        </div>
-      </section>
-      <section id="negatives" class="story-part" aria-labelledby="negative-title"></section>
-      <section id="tape" class="story-part" aria-labelledby="tape-title"></section>
-      <section id="letters" class="story-part" aria-labelledby="letters-title"></section>
-      <section id="recall" class="story-part" aria-labelledby="recall-title"></section>
+        </section>
+        <section id="negatives" class="story-part" aria-labelledby="negative-title"></section>
+        <section id="tape" class="story-part" aria-labelledby="tape-title"></section>
+        <section class="work-section spool-room" id="spool">
+          <div class="frame">
+            <div class="section-kicker"><i></i>TAPE TRANSPORT</div>
+            <h2>带子已经拿出来了</h2>
+            <div class="scene-grid">
+              <div class="bench-column">
+                <figure class="work-figure">
+                  <img
+                    id="spool-photo"
+                    src="./assets/shift/tape-day.webp"
+                    loading="lazy"
+                    alt="同一台录音机"
+                  />
+                  <figcaption id="spool-caption">带尾 · 透明引带</figcaption>
+                </figure>
+                <div class="toolcard">
+                  <h3>停机检视</h3>
+                  <button class="work-action" id="eject">定位到 B 面带尾</button>
+                  <p id="spool-note" role="status"></p>
+                  <div id="split" hidden>
+                    <button data-voice="split-mother">独听母亲</button
+                    ><button data-voice="split-clerk">独听提示者</button>
+                    <details>
+                      <summary>对读两声道</summary>
+                      <div data-transcript="split-mother"></div>
+                      <div data-transcript="split-clerk"></div>
+                    </details>
+                  </div>
+                </div>
+              </div>
+              <div data-script="spool"></div>
+            </div>
+          </div>
+        </section>
+        <section id="letters" class="story-part" aria-labelledby="letters-title"></section>
+        <section class="work-section clerk-room" id="apprentice">
+          <div class="frame">
+            <div class="section-kicker"><i></i>NIGHT SHIFT / 031-C</div>
+            <h2>三份雨夜记录</h2>
+            <div class="scene-grid">
+              <figure class="work-figure">
+                <img
+                  id="clerk-photo"
+                  src="./assets/shift/xu-shift.webp"
+                  loading="lazy"
+                  alt="穿着灰工作衫的许棠"
+                />
+                <figcaption id="clerk-name">许棠 · 夜班学徒</figcaption>
+              </figure>
+              <div data-script="register"></div>
+            </div>
+            <div class="toolcard register-board">
+              <h3>旧灯台 · 对齐骑缝印</h3>
+              <p>用每份副本上的残圆找原件。三个半圆接回同一张雨夜回执，就能读全拍摄位置。</p>
+              <div id="register-slots"></div>
+              <p id="register-result" role="status"></p>
+            </div>
+          </div>
+        </section>
+        <section id="fourth" class="work-section clerk-room">
+          <div class="frame">
+            <div class="section-kicker"><i></i>CATALOGUE / �TANG</div>
+            <h2>第四项来件</h2>
+            <div data-script="menu"></div>
+            <div class="inset-menu">
+              <div class="mini-cases">
+                <img src="./assets/album/street.webp" alt="邮局缩略图" loading="lazy" /><img
+                  src="./assets/album/front.webp"
+                  alt="母亲的缩略图"
+                  loading="lazy"
+                /><img src="./assets/shift/xu-shift.webp" alt="学徒的缩略图" loading="lazy" />
+              </div>
+              <button class="work-action" data-fourth>取阅第四项 · 正在看底片的人</button
+              ><button data-index>从工单索引查找</button>
+              <p data-menu-message role="status"></p>
+            </div>
+          </div>
+        </section>
+        <section id="recall" class="story-part" aria-labelledby="recall-title"></section>
 
-      <section id="darkroom" class="darkroom story-part" aria-labelledby="dark-title">
-        <div class="dark-stage">
-          <img
-            class="dark-base"
-            src="./assets/album/darkroom.webp"
-            alt="暗房的红灯下，晾着成排底片，靠墙是一把空藤椅"
-            loading="lazy"
-          /><img
-            class="dark-reverse"
-            src="./assets/album/reverse.webp"
-            alt=""
-            loading="lazy"
-            aria-hidden="true"
-          /><i class="dark-shade"></i>
-          <div class="frame dark-inner">
-            <div class="dark-story">
-              <div class="section-kicker"><i></i>SAFELIGHT &nbsp;/&nbsp; 27-B</div>
-              <p class="dark-stage-label" id="dark-phase">显影盘 · 白纸入液</p>
-              <h2 id="dark-title">椅子在暗房里。</h2>
-              <p class="dark-narration" id="dark-text">
-                红灯下面，那把椅子正对着放大机。右扶手的红线还湿着。托盘里的家人转头看向镜头，椅子却朝着洗照片的人。
-              </p>
-              <div class="dark-steps" aria-label="查看暗房步骤">
-                <button data-phase="0" aria-pressed="true">显影</button
-                ><button data-phase="1" aria-pressed="false">停显</button
-                ><button data-phase="2" aria-pressed="false">定影</button>
+        <section id="darkroom" class="work-section lens-room">
+          <div class="frame">
+            <div class="section-kicker"><i></i>FINAL ENLARGEMENT</div>
+            <h2>俯身再看一次</h2>
+            <div class="scene-grid">
+              <div class="bench-column">
+                <figure class="work-figure final-view">
+                  <img
+                    id="near-print"
+                    src="./assets/album/darkroom.webp"
+                    alt="红灯暗房与白班留下的空椅"
+                  /><span class="final-divider"></span
+                  ><input id="last-cut" type="range" min="0" max="100" value="100" />
+                  <figcaption>原片在左 · 修复样在右</figcaption>
+                </figure>
+                <div class="toolcard">
+                  <label for="last-cut">从右向左，推回原片</label>
+                  <p id="lens-note"></p>
+                </div>
+              </div>
+              <div data-script="lens"></div>
+            </div>
+            <div class="counter-roles" id="counter-roles" hidden>
+              <button data-customer="liang">老梁 · 查件窗口</button
+              ><button data-customer="mother">母亲 · 相框台</button
+              ><button data-customer="xu">许棠 · 印章按钮</button><a href="#top">回首页看柜台 ↗</a>
+            </div>
+          </div>
+        </section>
+        <section class="delivery story-part" id="delivery" aria-labelledby="delivery-title">
+          <div class="frame">
+            <div class="section-kicker"><i></i>FINAL PRINT &nbsp;/&nbsp; 27-B</div>
+            <h2 id="delivery-title">现在，交哪一张？</h2>
+            <p class="delivery-lede">取件铃响了两次。柜台外的人说，她带了两只相框。你面前只有一只底片袋。</p>
+            <div data-script="handoff"></div>
+            <div class="decisions" role="group" aria-label="选择交付方式">
+              <button data-ending="order">
+                <span>照单冲印</span><strong>交付空椅那张</strong><small>按第二联，洗两份。</small>
+              </button>
+              <button data-ending="restore">
+                <span>照底片冲印</span><strong>留下椅子上的人</strong><small>把第 27 格完整放大。</small>
+              </button>
+              <button data-ending="both">
+                <span>原件留存</span><strong>封存两种底片</strong
+                ><small id="both-hint">取回两处可核对的原始痕迹。</small>
+              </button>
+            </div>
+            <div class="evidence-box">
+              <span>随工单留存的痕迹</span>
+              <div class="evidence-links">
+                <a data-proof="post" href="#post">老梁 · 逆指印</a
+                ><a data-proof="family" href="#negatives">母亲 · 底片与声轨</a
+                ><a data-proof="clerk" href="#apprentice">许棠 · 骑缝印</a>
               </div>
             </div>
+            <p id="decision-status" aria-live="polite"></p>
           </div>
-          <span class="dark-instruction">继续下翻，观察药盘里的影像</span
-          ><button class="dark-audio" data-ambience aria-pressed="false">
-            <span data-ambience-label>开启环境音</span>
-          </button>
-        </div>
-      </section>
-      <section class="delivery story-part" id="delivery" aria-labelledby="delivery-title">
-        <div class="frame">
-          <div class="section-kicker"><i></i>FINAL PRINT &nbsp;/&nbsp; 27-B</div>
-          <h2 id="delivery-title">现在，交哪一张？</h2>
-          <p class="delivery-lede">取件铃响了两次。柜台外的人说，她带了两只相框。你面前只有一只底片袋。</p>
-          <div class="decisions" role="group" aria-label="选择交付方式">
-            <button data-ending="order">
-              <span>照单冲印</span><strong>交付空椅那张</strong><small>按第二联，洗两份。</small>
-            </button>
-            <button data-ending="restore">
-              <span>照底片冲印</span><strong>留下椅子上的人</strong><small>把第 27 格完整放大。</small>
-            </button>
-            <button data-ending="both">
-              <span>原件留存</span><strong>封存两种底片</strong
-              ><small id="both-hint">取回两处可核对的原始痕迹。</small>
-            </button>
-          </div>
-          <div class="evidence-box">
-            <span>随工单留存的痕迹</span>
-            <div class="evidence-links">
-              <a data-proof="carbon" href="#carbon">复写联</a
-              ><a data-proof="negative" href="#negatives">底片伤痕</a
-              ><a data-proof="splice" href="#tape">磁带接点</a
-              ><a data-proof="letter" href="#letters">旧信透字</a>
+        </section>
+        <section class="aftermath" id="aftermath" aria-labelledby="end-title" hidden>
+          <div class="frame aftermath-grid">
+            <div class="return-print">
+              <img id="return-photo" src="./assets/album/front.webp" alt="" loading="lazy" /><span
+                id="return-stamp"
+              ></span
+              ><span id="return-caption"></span>
+            </div>
+            <div class="return-copy">
+              <div class="section-kicker"><i></i>COLLECTION RECEIPT</div>
+              <h2 id="end-title" tabindex="-1"></h2>
+              <p id="end-text"></p>
+              <p id="end-last"></p>
+              <button id="end-voice" class="text-action">听取件人再说一句</button>
+              <div class="return-actions"><a href="#coda" class="button rust">随取件人走到门外</a></div>
             </div>
           </div>
-          <p id="decision-status" aria-live="polite"></p>
-        </div>
-      </section>
-      <section class="aftermath" id="aftermath" aria-labelledby="end-title" hidden>
-        <div class="frame aftermath-grid">
-          <div class="return-print">
-            <img id="return-photo" src="./assets/album/front.webp" alt="" loading="lazy" /><span
-              id="return-stamp"
-            ></span
-            ><span id="return-caption"></span>
+        </section>
+        <section class="coda" id="coda" aria-labelledby="coda-title">
+          <img
+            src="./assets/album/window.webp"
+            alt="深夜关门后的照相馆，窗内留着藤椅，玻璃上映出一家人的影子"
+            loading="lazy"
+          /><img id="window-layer" hidden alt="" aria-hidden="true" loading="lazy" /><i
+            class="window-drop"
+            aria-hidden="true"
+          ></i>
+          <div class="frame">
+            <div class="section-kicker"><i></i>AFTER CLOSING</div>
+            <h2 id="coda-title">门铃响了第三次。</h2>
+            <p id="coda-line">
+              你没有应声。隔着打烊的橱窗，能看见柜台前多出一个浅白的人形。雨水沿玻璃往下淌，只有它脸上的那一滴，慢慢往上走。
+            </p>
+            <div class="coda-actions">
+              <a id="coda-back" href="#delivery">回到交件台</a><button data-reset>重开这卷底片</button
+              ><button data-master aria-pressed="false">声音关</button>
+            </div>
           </div>
-          <div class="return-copy">
-            <div class="section-kicker"><i></i>COLLECTION RECEIPT</div>
-            <h2 id="end-title" tabindex="-1"></h2>
-            <p id="end-text"></p>
-            <p id="end-last"></p>
-            <div class="return-actions"><a href="#coda" class="button rust">随取件人走到门外</a></div>
-          </div>
-        </div>
-      </section>
-      <section class="coda" id="coda" aria-labelledby="coda-title">
-        <img
-          src="./assets/album/window.webp"
-          alt="深夜关门后的照相馆，窗内留着藤椅，玻璃上映出一家人的影子"
-          loading="lazy"
-        /><i class="window-drop" aria-hidden="true"></i>
-        <div class="frame">
-          <div class="section-kicker"><i></i>AFTER CLOSING</div>
-          <h2 id="coda-title">门铃响了第三次。</h2>
-          <p id="coda-line">
-            你没有应声。隔着打烊的橱窗，能看见柜台前多出一个浅白的人形。雨水沿玻璃往下淌，只有它脸上的那一滴，慢慢往上走。
-          </p>
-          <div class="coda-actions">
-            <a id="coda-back" href="#delivery">回到交件台</a><button data-reset>重开这卷底片</button
-            ><button data-ambience aria-pressed="false"><span data-ambience-label>开启环境音</span></button>
-          </div>
-        </div>
-      </section>
+        </section>
+      </div>
     </main>
-    <button id="archive-index" class="archive-index" aria-label="打开本卷档案索引" hidden>
-      <svg class="ico"><use href="#file" /></svg><span>底片袋</span><b>0 / 4</b>
-    </button>
     <footer>
       <div class="frame">
         <span>拾相修复所 <small>SHIXIANG PHOTO LAB</small></span
@@ -355,7 +584,8 @@
     <dialog id="desk-dialog" aria-labelledby="desk-heading">
       <div class="dialog-inner">
         <div class="dialog-mast">
-          <span>SHIXIANG PHOTO LAB</span
+          <span>SHIXIANG PHOTO LAB</span><button class="dialog-utility" data-restart>重开</button
+          ><button class="dialog-utility" data-master>声音关</button
           ><button class="icon-button" id="dialog-close" aria-label="关闭窗口">
             <svg class="ico"><use href="#close" /></svg>
           </button>
@@ -364,5 +594,15 @@
         <div id="desk-content"></div>
       </div>
     </dialog>
+    <dialog id="closeup" aria-labelledby="closeup-line">
+      <img id="closeup-img" alt="" />
+      <div class="cut-controls">
+        <button data-master>声音关</button><button data-restart>重开</button
+        ><button id="leave-cut">退出特写</button>
+      </div>
+      <p id="closeup-line"></p>
+    </dialog>
+    <div id="ink-cut" hidden aria-hidden="true"><span>交班</span></div>
+    <div id="sound-status" role="status" hidden></div>
   </body>
 </html>

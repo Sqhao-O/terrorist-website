@@ -77,7 +77,7 @@
         <div class="tape-traces" aria-hidden="true"><div><b>A</b><span></span><em>16.1 s</em></div><div><b>B</b><span></span><em>10.5 s</em></div></div>
         <div><p class="tape-proof-title" id="tape-proof-title">同一口气，被用了两次。</p><p>A 面第 16.1 秒，B 面第 10.5 秒。两次呼吸之间那一下碰桌声，也在同一拍。四秒八，一分不差。他们把她听指令时的沉默，剪进了她自己的回答。</p></div>
       </div>
-      <div class="tape-bottom"><span>拾相修复所 · 声轨存档</span><button type="button" data-ambience aria-pressed="false"><span data-ambience-label>开启环境音</span></button></div>
+      <div class="tape-bottom"><span>拾相修复所 · 声轨存档</span><button type="button" data-master aria-pressed="false">声音关</button></div>
     </div>`;
 
   const get = (selector) => mount.querySelector(selector);
@@ -87,7 +87,7 @@
   let side = "A";
   let position = 0;
   let awaitingSeek = null;
-  let inspected = false;
+  let inspected = ShiftRun.evidence.includes("splice");
   let playbackRequest = 0;
   let sourceRequest = 0;
   let loading = false;
@@ -97,6 +97,7 @@
   const playButton = get(".tape-play");
   const proof = get(".tape-evidence");
   const match = get(".tape-match");
+  proof.hidden = !inspected;
   const formatTime = (seconds) => "00:" + String(Math.floor(seconds)).padStart(2, "0");
   const rowBars = envelope.map((height) => '<i style="height:' + height + '%"></i>').join("");
   proof.querySelectorAll(".tape-traces span").forEach((wave) => {
@@ -207,6 +208,8 @@
       audio.pause();
       return;
     }
+    if (!ShiftSound.allowTransport()) return;
+    window.dispatchEvent(new Event("shift-cassette-play"));
     const request = ++playbackRequest;
     if (position >= recordings[side].duration - 0.12) seek(0);
     try {
@@ -245,198 +248,14 @@
     drawTransport();
     if (side === "B") establishSplice(false);
   });
-  selectSide("A");
+  if (ShiftRun.night) selectSide("A");
+  else window.addEventListener("shift-night", () => selectSide("A"), {once:true});
 
-  // A motor winding at slightly different speeds as the page approaches the darkroom.
-  let roomEngine = null;
-  let ambienceGeneration = 0;
-  const coda = document.getElementById("coda");
-  const breathKey = "shixiang-window-breath-27b";
-  let inWindow = false;
-  let breathTask = null;
-  let breathPlayed = false;
-  try {
-    breathPlayed = sessionStorage.getItem(breathKey) === "1";
-  } catch {
-    /* Keep one roll in memory. */
-  }
-
-  function stopBreath() {
-    if (!breathTask) return;
-    const { controller, source } = breathTask;
-    breathTask = null;
-    controller.abort();
-    if (source) source.stop();
-  }
-  function windowIsVisible() {
-    if (!inWindow || !coda) return false;
-    // A control may scroll into view one frame before IntersectionObserver fires.
-    const rect = coda.getBoundingClientRect();
-    return rect.height > 0 && Math.min(innerHeight, rect.bottom) - Math.max(0, rect.top) >= 0.4 * rect.height;
-  }
-  async function soundAtWindow() {
-    if (!windowIsVisible()) {
-      stopBreath();
-      return;
-    }
-    const context = roomEngine?.context;
-    if (!context || context.state !== "running" || document.hidden || breathPlayed || breathTask) return;
-    const task = { controller: new AbortController(), source: null };
-    breathTask = task;
-    try {
-      const response = await fetch(new URL("window-breath.mp3", rootUrl), { signal: task.controller.signal });
-      if (!response.ok) throw new Error("Window recording unavailable");
-      const samples = await context.decodeAudioData(await response.arrayBuffer());
-      if (task !== breathTask) return;
-      if (document.hidden || !windowIsVisible()) {
-        stopBreath();
-        return;
-      }
-      const source = context.createBufferSource();
-      source.buffer = samples;
-      const glass = context.createBiquadFilter();
-      glass.type = "lowpass";
-      glass.frequency.value = 1900;
-      glass.Q.value = 0.55;
-      const level = context.createGain();
-      level.gain.value = 1.45;
-      source.connect(glass).connect(level).connect(context.destination);
-      source.onended = () => {
-        source.disconnect();
-        glass.disconnect();
-        level.disconnect();
-        if (breathTask === task) breathTask = null;
-      };
-      source.start();
-      task.source = source;
-      breathPlayed = true;
-      try {
-        sessionStorage.setItem(breathKey, "1");
-      } catch {
-        /* A private tab still plays it once. */
-      }
-    } catch {
-      if (breathTask === task) breathTask = null;
-    }
-  }
-  if (coda) {
-    new IntersectionObserver(
-      ([entry]) => {
-        inWindow = entry.isIntersecting && entry.intersectionRatio >= 0.4;
-        soundAtWindow();
-      },
-      { threshold: [0, 0.4] },
-    ).observe(coda);
-  }
-  function updateAmbienceControls() {
-    document.querySelectorAll("[data-ambience]").forEach((button) => {
-      button.setAttribute("aria-pressed", String(Boolean(roomEngine)));
-      const label = roomEngine ? "关闭环境音" : "开启环境音";
-      button.setAttribute("aria-label", label);
-      const visibleLabel = button.querySelector("[data-ambience-label]");
-      if (visibleLabel) visibleLabel.textContent = label;
-    });
-  }
-  function stopAmbience() {
-    ambienceGeneration++;
-    stopBreath();
-    if (roomEngine) {
-      const { context, gain } = roomEngine;
-      roomEngine = null;
-      gain.gain.setTargetAtTime(0, context.currentTime, 0.018);
-      setTimeout(() => context.close().catch(() => {}), 130);
-    }
-    updateAmbienceControls();
-  }
-  async function toggleAmbience() {
-    if (roomEngine) {
-      stopAmbience();
-      return;
-    }
-    const AudioAPI = window.AudioContext || window.webkitAudioContext;
-    if (!AudioAPI) return;
-    const token = ++ambienceGeneration;
-    let context;
-    try {
-      context = new AudioAPI();
-      const gain = context.createGain();
-      gain.gain.value = 0;
-      gain.connect(context.destination);
-      const motor = context.createOscillator();
-      motor.frequency.value = 52;
-      motor.connect(gain);
-      motor.start();
-      const beating = context.createOscillator();
-      beating.frequency.value = 52.7;
-      const echo = context.createGain();
-      echo.gain.value = 0.41;
-      beating.connect(echo).connect(gain);
-      beating.start();
-      const strip = context.createBuffer(1, 3 * context.sampleRate, context.sampleRate);
-      const hiss = strip.getChannelData(0);
-      let seed = 27;
-      for (let i = 0; i < hiss.length; i++) {
-        seed = (Math.imul(seed, 1664525) + 1013904223) | 0;
-        hiss[i] = (seed / 2147483648) * 0.17;
-      }
-      const head = context.createBufferSource();
-      head.buffer = strip;
-      head.loop = true;
-      const lowpass = context.createBiquadFilter();
-      lowpass.frequency.value = 2100;
-      head.connect(lowpass).connect(gain);
-      head.start();
-      roomEngine = { context, gain, beating };
-      updateAmbienceControls();
-      await context.resume();
-      if (token !== ambienceGeneration) return;
-      gain.gain.setTargetAtTime(0.038, context.currentTime, 0.28);
-      tuneRoom();
-      soundAtWindow();
-    } catch {
-      if (token === ambienceGeneration) {
-        if (!roomEngine && context) await context.close().catch(() => {});
-        stopAmbience();
-      }
-    }
-  }
-  function tuneRoom() {
-    if (!roomEngine) return;
-    const distance = Math.max(1, document.documentElement.scrollHeight - innerHeight);
-    roomEngine.beating.frequency.setTargetAtTime(
-      52.4 + (2.9 * scrollY) / distance,
-      roomEngine.context.currentTime,
-      0.8,
-    );
-  }
-  document.addEventListener("click", (event) => {
-    if (event.target.closest("[data-ambience]")) toggleAmbience();
+  window.addEventListener("shift-stop-media", () => audio.pause());
+  window.addEventListener("shift-stop-cassette", () => audio.pause());
+  audio.addEventListener("ended", () => {
+    if (side === "B") window.dispatchEvent(new Event("shift-tape-tail"));
   });
-  window.addEventListener("scroll", tuneRoom, { passive: true });
-  function silence() {
-    playbackRequest++;
-    audio.pause();
-    stopAmbience();
-  }
-  document.addEventListener("visibilitychange", () => {
-    if (document.hidden) silence();
-  });
-  window.addEventListener("pagehide", silence);
-  document.querySelector("#coda-back")?.addEventListener("click", (event) => {
-    if (event.currentTarget.hash === "#top") silence();
-    else stopBreath();
-  });
-  window.addEventListener("studio-reset", () => {
-    silence();
-    breathPlayed = false;
-    try {
-      sessionStorage.removeItem(breathKey);
-    } catch {
-      /* In-memory reset is sufficient. */
-    }
-    inspected = false;
-    proof.hidden = true;
-    selectSide("A");
-  });
-  updateAmbienceControls();
+  window.addEventListener("studio-reset", () => {audio.pause(); selectSide("A");});
+  ShiftSound.controls();
 })();

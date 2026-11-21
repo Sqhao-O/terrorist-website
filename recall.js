@@ -3,7 +3,7 @@
   const section = document.getElementById("recall");
   if (!section) return;
 
-  const key = "shixiang-recall-27b-v1";
+  const key = "shixiang-counter-recall-v2";
   const phrases = Object.freeze({
     empty: "椅子是空的。",
     person: "椅子上坐着一个人。",

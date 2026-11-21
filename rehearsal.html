@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="zh-CN">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex" />
+  <title>逐场排演本 · 拾相修复所</title>
+  <link rel="icon" href="./favicon.svg" />
+  <link rel="stylesheet" href="./studio.css" />
+  <style>
+    body {
+      max-width: 52em;
+      margin: auto;
+      padding: 3rem clamp(1.2rem, 5vw, 4rem);
+      font-family: var(--serif);
+    }
+    h1 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      margin: 0.5em 0;
+      line-height: 1.25;
+    }
+    main h2 {
+      font-size: 1.85rem;
+      margin: 1.7em 0 0.5em;
+      border-top: 2px solid #746959;
+      padding-top: 0.65em;
+    }
+    main h3 {
+      margin: 1.1em 0 0.3em;
+    }
+    p,
+    dd {
+      line-height: 1.9;
+      margin: 0 0 0.6em;
+    }
+    dl {
+      padding: 1em 1.3em;
+      background: #eae4d4;
+    }
+    dt {
+      font-weight: 700;
+      color: #794632;
+    }
+    dd {
+      margin-left: 0;
+    }
+    header a,
+    nav a {
+      color: #764331;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 18px;
+    }
+    aside {
+      padding: 1em 0;
+      border-bottom: 1px solid #aaa08d;
+    }
+    @media print {
+      header a,
+      nav {
+        display: none;
+      }
+      body {
+        max-width: none;
+        padding: 0;
+      }
+      h2,
+      h3,
+      dt {
+        break-after: avoid;
+      }
+      p,
+      dl {
+        break-inside: avoid;
+      }
+    }
+  </style>
+  <header>
+    <a href="./">回到修复所</a>
+    <h1>拾相修复所<br />请本人签收</h1>
+    <p>逐场排演本，含全部结局。正文、追问和交付后的回访与柜台共用同一份台本。</p>
+  </header>
+  <nav aria-label="跳到场次"></nav>
+  <main></main>
+  <script src="./playbook.js"></script>
+  <script>
+    const main = document.querySelector("main"),
+      nav = document.querySelector("nav");
+    const notes = {
+      green: "日光。照片朝向街口。记录亲手封存的绿漆，回到夜班后仍可在工单夹中核对。",
+      thread: "第一次落笔有三种原话，也可以留白。再问一次时，第一联必须逐字相同。母亲的线头留在工作副本。",
+      hangup: "9.1 秒，叉簧落下，底噪消失。10.46 秒，许棠在近处说「辛苦你接班」。这是白班唯一一处失常。",
+      stamp: "第一声取件铃从柜台外来。印章遮满画面，回同一个首页。未签的一联仍空着。",
+      glass: "相同机位看两次，第一次看远处，第二次将鼻尖硬切到放大镜里。镜筒轻磕；撤镜留下倒着开的斗形纹。",
+      carbon: "副联改署代收，下一声叫「代收人老梁」。若保留「本人」，玻璃两边同时有人抬头。空白则无人应声。",
+      frames:
+        "空椅窄框给父亲，他去热第三只碗。若把三人照交给父亲，他重新询问名字，阿禾站在门外。背板扣紧后，母亲提走玩家装成的那一对。",
+      spool:
+        "A 面 16.1 秒、B 面 10.5 秒有同样长的 4.8 秒呼吸。停机、翻面、抽带。带轮后面的眼睛留在机器里，近处说「别替我答」。单独放两条声轨，柜台声音属于许棠。",
+      register:
+        "1998 年签收单、2004 年声音定位卡、2001 年翻拍底片，分别对到笔尾、柜内的铃、玻璃反向的半圆。原件日期是同一个雨夜。",
+      menu: "缩略图先转头，最小的一张占满视口。有第一联就念第一联。白天把分界线拖到最左才念那句看见柜台外面的话。没有这两项，就只提确实做过的封存或核对。若无可引用的经手记录，许棠静默。撤掉照片，他留在按钮里。",
+      lens: "还原白班分界线。滑到中段，暗房出现单眼；再向左，脸贴到玻璃的另一面。先静音，撤回时同一枚铃从木柜里响。玻璃上留着一根湿睫毛。",
+      handoff:
+        "照单交付、洗出第三人可以直接签。双底封存须有两宗不同来件的独立凭据。同宗的底片划痕和呼吸接点只算一宗。保留空白，则沿橱窗走到取件槽。",
+    };
+    function element(tag, text, parent) {
+      const el = document.createElement(tag);
+      el.textContent = text;
+      parent.append(el);
+      return el;
+    }
+    function section(id, title) {
+      const s = document.createElement("section");
+      s.id = id;
+      main.append(s);
+      element("h2", title, s);
+      const a = element("a", title, nav);
+      a.href = "#" + id;
+      return s;
+    }
+    Object.entries(SHIFT_PLAY).forEach(([id, scene]) => {
+      const s = section(id, scene.title),
+        dl = document.createElement("dl");
+      s.append(dl);
+      [
+        ["人物所求", scene.want],
+        ["玩家动作", scene.action],
+        ["当场改变", scene.change],
+      ].forEach(([k, v]) => {
+        element("dt", k, dl);
+        element("dd", v, dl);
+      });
+      scene.pages.forEach(([cue, text]) => {
+        element("h3", cue, s);
+        element("p", text, s);
+      });
+      if (scene.follow) {
+        element("h3", "追问　" + scene.follow[0], s);
+        element("p", scene.follow[1], s);
+      }
+      element("aside", notes[id], s);
+    });
+    Object.entries(SHIFT_ENDINGS).forEach(([id, e]) => {
+      const s = section(id, e.stamp);
+      element("h3", e.title, s);
+      [e.caption, e.text, e.last, e.line].forEach((p) => element("p", p, s));
+    });
+    const uns = section("unsigned", "无人签收");
+    element(
+      "p",
+      "第三声铃，没有人应。取件槽从里面打开。那人把笔帽咬在嘴里，让笔杆穿过玻璃，伸到你手边。签收联最后一格还空着。",
+      uns,
+    );
+  </script>
+</html>

@@ -79,7 +79,12 @@
   const finding = get(".neg-finding");
   let selected = 0;
   let comparing = false;
-  let confirmed = false;
+  let confirmed = ShiftRun.evidence.includes("negative");
+  const findingText = "两格的白痕合成了同一个缺口。两张「空椅」都翻自同一张底片。那中间的一格，为什么没交给取件人？";
+  if (confirmed) {
+    finding.hidden = false;
+    finding.textContent = findingText;
+  }
 
   function setOffset(value) {
     offset.value = String(value);
@@ -91,8 +96,7 @@
     if (value === 0 && !confirmed) {
       confirmed = true;
       finding.hidden = false;
-      finding.textContent =
-        "两格的白痕合成了同一个缺口。两张「空椅」都翻自同一张底片。那中间的一格，为什么没交给取件人？";
+      finding.textContent = findingText;
       window.dispatchEvent(new CustomEvent("studio-evidence", { detail: "negative" }));
     }
   }
