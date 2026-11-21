@@ -1,107 +1,368 @@
 <!doctype html>
 <html lang="zh-CN">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#283d30">
-  <meta name="description" content="雾隐山居，藏在莫干山竹海深处的一处山间旅所。循着清晨的雾，走进山居的一天。">
-  <title>雾隐山居 Wuyin Retreat · 莫干山</title>
-  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
-  <link rel="preload" as="image" href="./assets/retreat.webp" fetchpriority="high">
-  <link rel="stylesheet" href="./style.css">
-  <link rel="stylesheet" href="./booking.css">
-  <script defer src="./site.js"></script>
-  <script defer src="./booking.js"></script>
-  <script defer src="./sound.js"></script>
-</head>
-<body>
-  <svg class="sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    <symbol id="mountain" viewBox="0 0 56 44"><g fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="m2 30 15-21 10 13 6-10 20 22M3 36 20 17l12 16 8-10 13 14M6 40h45"/><path d="m13 24 4-3 3 1 3-2"/><circle cx="41" cy="7" r="3.5"/></g></symbol>
-    <symbol id="pin" viewBox="0 0 24 24"><path d="M19 9.5c0 5-7 11-7 11s-7-6-7-11a7 7 0 1 1 14 0Z"/><circle cx="12" cy="9.5" r="2.4"/></symbol>
-    <symbol id="calendar" viewBox="0 0 24 24"><rect x="4" y="5.5" width="16" height="15" rx="1.8"/><path d="M8 3v5m8-5v5M4 11h16"/></symbol>
-    <symbol id="compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m15.8 8.2-2.3 5.3-5.3 2.3 2.3-5.3Z"/></symbol>
-    <symbol id="prev" viewBox="0 0 24 24"><path d="m14 6-6 6 6 6"/></symbol>
-    <symbol id="next" viewBox="0 0 24 24"><path d="m10 6 6 6-6 6"/></symbol>
-    <symbol id="close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
-    <symbol id="menu" viewBox="0 0 24 24"><path d="M3 8h18M3 16h18"/></symbol>
-    <symbol id="leaf" viewBox="0 0 24 24"><path d="M4 20 17 7M5.6 16.7C3 7 10 4.4 21 3c-.3 9.6-5 17.4-13 15.3"/></symbol>
-    <symbol id="volume" viewBox="0 0 24 24"><path d="M3 9h4l5-4v14l-5-4H3Z"/><path class="sound-on" d="M15 8a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14"/><path class="sound-off" d="m16 9 5 6m0-6-5 6"/></symbol>
-  </svg>
-  <a class="skip-link" href="#experiences">跳至山居体验</a>
-  <main>
-    <section class="hero" id="home" aria-labelledby="hero-title">
-      <div class="hero-photos" aria-hidden="true"><img class="hero-photo is-current" src="./assets/retreat.webp" alt="" width="1881" height="836" fetchpriority="high"></div>
-      <header class="mast">
-        <div class="mast-inner">
-          <a class="brand" href="#home" aria-label="雾隐山居首页"><svg class="brand-mark" aria-hidden="true"><use href="#mountain"/></svg><span class="brand-type"><b>雾隐山居</b><small>WUYIN RETREAT</small></span></a>
-          <nav class="desktop-nav" aria-label="主导航"><a href="#home" aria-current="page">山居首页</a><a href="#experiences">山居体验</a><a href="#journal">住客手记</a></nav>
-          <div class="mast-actions"><button class="reserve" data-booking><svg class="icon"><use href="#calendar"/></svg>预约入住</button><button class="hamburger" aria-label="展开导航" aria-controls="mobile-nav" aria-expanded="false"><svg class="icon"><use href="#menu"/></svg></button></div>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f7f3e9" />
+    <meta
+      name="description"
+      content="拾相修复所，南桥巷一家手工影像工作室。查看老照片修复案例，翻阅工单与底片档案。"
+    />
+    <title>拾相修复所 · 老照片修复与底片档案</title>
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="preload" as="image" href="./assets/album/front.webp" fetchpriority="high" />
+    <link rel="stylesheet" href="./studio.css" />
+    <link rel="stylesheet" href="./negative.css" />
+    <link rel="stylesheet" href="./tape.css" />
+    <link rel="stylesheet" href="./letters.css" />
+    <link rel="stylesheet" href="./recall.css" />
+    <script defer src="./studio.js"></script>
+    <script defer src="./negative.js"></script>
+    <script defer src="./tape.js"></script>
+    <script defer src="./letters.js"></script>
+    <script defer src="./recall.js"></script>
+  </head>
+  <body>
+    <svg class="sprite" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+      <symbol id="camera" viewBox="0 0 32 32">
+        <path d="M4 9h6l2-3h8l2 3h6a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V11a2 2 0 0 1 2-2Z" />
+        <circle cx="16" cy="17.5" r="6.2" />
+        <circle cx="16" cy="17.5" r="3.7" />
+        <path d="M5 12h3m15 0h3" />
+      </symbol>
+      <symbol id="prints" viewBox="0 0 24 24">
+        <rect x="6" y="4" width="15" height="14" rx="1.2" />
+        <path d="M17 21H3V8m4 7 4-4 3 3 3-3 4 4" />
+        <circle cx="15.5" cy="8" r="1" />
+      </symbol>
+      <symbol id="file" viewBox="0 0 24 24">
+        <path d="M3 7h7l2-2h8v14H3Z" />
+        <path d="M7 10h9m-9 3h6" />
+      </symbol>
+      <symbol id="flip" viewBox="0 0 24 24"><path d="M20 8a8 8 0 1 0 0 8m0-13v5h-5" /></symbol>
+      <symbol id="search" viewBox="0 0 24 24">
+        <circle cx="10" cy="10" r="6.5" />
+        <path d="m15 15 6 6" />
+      </symbol>
+      <symbol id="menu" viewBox="0 0 24 24"><path d="M3 8h18M3 16h18" /></symbol>
+      <symbol id="close" viewBox="0 0 24 24"><path d="m5 5 14 14M19 5 5 19" /></symbol>
+      <symbol id="drag" viewBox="0 0 24 24"><path d="m7 8-4 4 4 4m10-8 4 4-4 4" /></symbol>
+      <symbol id="check" viewBox="0 0 24 24"><path d="m4 12 5 5L20 6" /></symbol>
+    </svg>
+    <a class="skip" href="#cases">跳至修复案例</a>
+    <header class="mast" id="top">
+      <div class="frame header-row">
+        <a class="brand" href="#top" aria-label="拾相修复所首页"
+          ><span class="brand-stamp"
+            ><svg class="ico"><use href="#camera" /></svg></span
+          ><span><strong>拾相修复所</strong><small>SHIXIANG PHOTO LAB</small></span></a
+        >
+        <nav class="main-nav" aria-label="主导航">
+          <a href="#top" aria-current="page">首页</a><a href="#cases">修复案例</a
+          ><button data-service>服务与流程</button><a href="#intake">工单档案</a>
+        </nav>
+        <div class="head-actions">
+          <button class="query" data-query>
+            <svg class="ico"><use href="#search" /></svg>查询工单</button
+          ><button class="menu" aria-controls="compact-nav" aria-expanded="false" aria-label="展开导航">
+            <svg class="ico"><use href="#menu" /></svg>
+          </button>
         </div>
-        <nav id="mobile-nav" aria-label="移动导航" hidden><a href="#home">山居首页</a><a href="#experiences">山居体验</a><a href="#journal">住客手记</a></nav>
-      </header>
-      <div class="hero-body wrap">
-        <div class="eyebrow hero-kicker"><span class="rule"></span>MOGANSHAN, CHINA</div>
-        <h1 id="hero-title">山有雾，<br>心有归处。</h1>
-        <p class="hero-description">在莫干山的竹海深处，<br class="mobile-break">听风入林，枕雾而眠。</p>
-        <a class="explore" href="#experiences"><svg class="icon"><use href="#compass"/></svg>探索山居</a>
       </div>
-      <div class="hero-foot wrap">
-        <a class="scroll-hint" href="#experiences"><span class="scroll-mouse" aria-hidden="true"></span>向下漫游<span class="tiny-line"></span><span lang="en">SCROLL</span></a>
-        <div class="photo-controls" role="group" aria-label="山居相册">
-          <span class="photo-caption" aria-live="polite"><span class="photo-num">01</span><span class="photo-total">/ 03</span><span class="photo-name">山居晨雾</span></span>
-          <button class="circle-btn" data-slide="-1" aria-label="上一张山居照片"><svg class="icon"><use href="#prev"/></svg></button>
-          <button class="circle-btn" data-slide="1" aria-label="下一张山居照片"><svg class="icon"><use href="#next"/></svg></button>
+      <nav id="compact-nav" aria-label="移动导航" hidden>
+        <a href="#top">首页</a><a href="#cases">修复案例</a><button data-service>服务与流程</button
+        ><a href="#intake">工单档案</a>
+      </nav>
+    </header>
+    <main>
+      <section class="showroom" aria-labelledby="hero-title">
+        <div class="frame hero-grid">
+          <div class="hero-copy">
+            <div class="section-kicker"><i></i>ANALOG RESTORATION STUDIO</div>
+            <h1 id="hero-title"><span>让旧照片，</span><em>重新显影。</em></h1>
+            <p id="hero-intro">
+              从发白的银盐相纸，到藏在抽屉里的家庭底片。<br
+                class="wide-br"
+              />我们手工修复每一张，也保留它原来的样子。
+            </p>
+            <div class="hero-actions">
+              <a class="button rust" id="hero-action" href="#cases"
+                ><svg class="ico"><use href="#prints" /></svg><span>浏览修复案例</span></a
+              ><button class="text-action" data-service>了解修复流程</button>
+            </div>
+            <div class="hero-colophon"><i></i>南桥巷手工影像工作室<span>EST. 1987</span></div>
+          </div>
+          <div class="print-stage">
+            <div class="film-tail" aria-hidden="true"><span>SHIXIANG 35</span></div>
+            <div class="back-print" aria-hidden="true"></div>
+            <figure class="hero-print">
+              <div class="comparison" style="--cut: 37%">
+                <img
+                  class="restored"
+                  src="./assets/album/front.webp"
+                  alt="旧院里的双人合影，窗前有一把缠红线的空藤椅"
+                  width="1448"
+                  height="1086"
+                  fetchpriority="high"
+                />
+                <div class="aged" aria-hidden="true">
+                  <img src="./assets/album/front.webp" alt="" /><i></i>
+                </div>
+                <span class="compare-label label-before">原片</span
+                ><span class="compare-label label-after">修复后</span>
+                <div class="slider-line" aria-hidden="true">
+                  <span
+                    ><svg class="ico"><use href="#drag" /></svg
+                  ></span>
+                </div>
+                <input
+                  type="range"
+                  min="0"
+                  max="100"
+                  value="37"
+                  id="compare"
+                  aria-label="拖动比较旧照片原片与修复后效果"
+                />
+              </div>
+              <figcaption>
+                <span class="caption-square"></span><b id="sample-caption">南桥巷，院中合影</b
+                ><span class="film-ref">NO. 027 / 1998</span>
+              </figcaption>
+            </figure>
+            <div class="compare-tip">
+              <svg class="ico"><use href="#drag" /></svg>拖动分界线，对比修复前后
+            </div>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+      <section class="cases" id="cases" aria-labelledby="case-title">
+        <div class="frame">
+          <div class="section-kicker"><i></i>SELECTED RESTORATIONS</div>
+          <div class="cases-intro">
+            <h2 id="case-title">近期修复案例</h2>
+            <div class="filters" role="group" aria-label="按载体筛选案例">
+              <button data-filter="all" aria-pressed="true">全部</button
+              ><button data-filter="print" aria-pressed="false">纸基照片</button
+              ><button data-filter="film" aria-pressed="false">胶卷底片</button>
+            </div>
+          </div>
+          <div class="case-grid">
+            <button class="case" data-case="014-A" data-medium="print">
+              <span class="case-img"
+                ><img
+                  src="./assets/album/street.webp"
+                  alt="树影落在南桥邮局门口的旧自行车上"
+                  loading="lazy" /></span
+              ><span class="case-meta">014-A <i></i> 褪色校正</span><strong>邮局门前的自行车</strong
+              ><span class="case-foot">1986 年 · 彩色相纸</span>
+            </button>
+            <button class="case" data-case="27-B" data-medium="print">
+              <span class="case-img"
+                ><img src="./assets/album/front.webp" alt="藤椅旁的院中合影" loading="lazy" /></span
+              ><span class="case-meta">027-B <i></i> 银盐修补</span><strong>院子里的最后一张合影</strong
+              ><span class="case-foot">1998 年 · 家庭留影</span>
+            </button>
+            <button class="case" data-case="031-C" data-medium="film">
+              <span class="case-img"
+                ><img
+                  src="./assets/album/enlarger.webp"
+                  alt="灯箱上摊开的胶卷和看片放大镜"
+                  loading="lazy" /></span
+              ><span class="case-meta">031-C <i></i> 底片扫描</span><strong>未冲印的那一卷</strong
+              ><span class="case-foot">2001 年 · 35 毫米底片</span>
+            </button>
+          </div>
+        </div>
+      </section>
 
-    <section class="experiences" id="experiences" aria-labelledby="experience-title">
-      <div class="wrap">
-        <div class="eyebrow dark-kicker"><span class="rule"></span>THE EXPERIENCES</div>
-        <div class="section-intro"><h2 id="experience-title">山居日常<span class="seal" aria-hidden="true">山<br>居</span></h2><p>从一间山房开始，循着茶香与林间小径，<br class="desktop-break">慢慢认识这座山。</p></div>
-        <div class="experience-grid">
-          <button class="experience" data-detail="room"><span class="card-img"><img src="./assets/room.webp" alt="木色客房的落地窗外是雾中的山林" loading="lazy"></span><span class="card-meta">STAY</span><span class="card-heading">枕山而居<span class="card-more" aria-hidden="true">＋</span></span><span class="card-text">推开木窗，让第一缕山风叫醒你。</span></button>
-          <button class="experience" data-detail="tea"><span class="card-img"><img src="./assets/tea.webp" alt="临窗茶席上的紫砂壶与青瓷茶盏" loading="lazy"></span><span class="card-meta">TASTE</span><span class="card-heading">山间茶事<span class="card-more" aria-hidden="true">＋</span></span><span class="card-text">一壶山泉，等一泡竹林里的清茶。</span></button>
-          <button class="experience" data-detail="trail"><span class="card-img"><img src="./assets/trail.webp" alt="一条通向竹林深处的湿润石阶" loading="lazy"></span><span class="card-meta">WANDER</span><span class="card-heading">循径入林<span class="card-more" aria-hidden="true">＋</span></span><span class="card-text">沿青石小径出发，日落前记得回房。</span></button>
+      <section class="intake story-part" id="intake" aria-labelledby="intake-title">
+        <div class="frame">
+          <div class="section-kicker"><i></i>PROOF SHEET &nbsp;/&nbsp; 27-B</div>
+          <h2 id="intake-title">交件前，帮我们校一次样。</h2>
+          <div class="intake-grid">
+            <div class="proof-board">
+              <div class="proof-front">
+                <img
+                  src="./assets/album/front.webp"
+                  alt="未经本轮校正的合影，右手边的藤椅空着"
+                  loading="lazy"
+                /><small>南桥巷旧照相馆留底　1998.11.29</small>
+              </div>
+              <div class="proof-back" hidden>
+                <span class="postmark">南桥<br />1998</span
+                ><span class="verso-label">2004 年加洗附记 · 蓝色圆珠笔</span>
+                <p>洗两张。一张给他，<br />一张放在那把椅子上。</p>
+                <small>右扶手上的红线千万别修掉，她摸着那个才知道坐哪边。</small>
+              </div>
+              <button class="flip print-button" aria-pressed="false">
+                <svg class="ico"><use href="#flip" /></svg><span>翻看照片背面</span>
+              </button>
+            </div>
+            <div class="memory-form">
+              <span class="work-label">工单 27-B · 校样第一联</span>
+              <h3>右手边那把藤椅，<br />你第一眼看见了什么？</h3>
+              <p>老师傅习惯先记第一眼，再拿放大镜。第一联落笔后留底，稍后可以取出来逐字核对。</p>
+              <fieldset class="observations">
+                <legend>把你的观察写进第一联</legend>
+                <button data-observe="empty">椅子是空的。</button
+                ><button data-observe="person">椅子上坐着一个人。</button
+                ><button data-observe="unsure">我看不清楚。</button>
+              </fieldset>
+              <p id="observation-status" class="writing-status" aria-live="polite">
+                也可以先不落笔，往下翻。
+              </p>
+            </div>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+      <section class="carbon story-part" id="carbon" aria-labelledby="carbon-title">
+        <div class="frame carbon-grid">
+          <div class="carbon-copy">
+            <div class="section-kicker"><i></i>CARBON DUPLICATE</div>
+            <h2 id="carbon-title">同一支笔，<br />两种笔迹。</h2>
+            <p>
+              柜台底下夹着第二联。日期是 1998 年 11 月 29 日。把它和刚才的留底放在一起，最下面那行字没有对齐。
+            </p>
+            <button class="outline-action" id="lift-carbon" aria-pressed="false">揭开复写纸</button>
+          </div>
+          <div class="carbon-stack">
+            <div class="carbon-slip">
+              <div class="slip-top"><b>南桥照相馆</b><span>复写联 · 27-B</span></div>
+              <div class="slip-row"><span>托洗物</span><b>院中合影　一底两印</b></div>
+              <div class="slip-row"><span>第一联原话</span><b id="first-quote">此栏未落笔</b></div>
+              <div class="slip-row under-row">
+                <span>第二联存档</span><b id="second-quote">隔着蜡纸，墨迹透不过来。</b>
+              </div>
+              <p id="carbon-result" aria-live="polite">复写纸的黑面朝上。墨本应落在另一面。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="negatives" class="story-part" aria-labelledby="negative-title"></section>
+      <section id="tape" class="story-part" aria-labelledby="tape-title"></section>
+      <section id="letters" class="story-part" aria-labelledby="letters-title"></section>
+      <section id="recall" class="story-part" aria-labelledby="recall-title"></section>
 
-    <section class="journal" id="journal" aria-labelledby="journal-title">
-      <div class="journal-backdrop" aria-hidden="true"></div>
-      <div class="wrap journal-layout">
-        <div class="journal-head"><div class="eyebrow"><span class="rule"></span>THE GUESTBOOK</div><h2 id="journal-title">住客手记</h2><p>前厅的木桌上，摊着一本受潮的留言簿。<br>最近三条留言，笔迹一模一样。</p>
-          <button class="sound-control" aria-pressed="false" data-sound><svg class="icon"><use href="#volume"/></svg><span>聆听山中环境音</span></button>
+      <section id="darkroom" class="darkroom story-part" aria-labelledby="dark-title">
+        <div class="dark-stage">
+          <img
+            class="dark-base"
+            src="./assets/album/darkroom.webp"
+            alt="暗房的红灯下，晾着成排底片，靠墙是一把空藤椅"
+            loading="lazy"
+          /><img
+            class="dark-reverse"
+            src="./assets/album/reverse.webp"
+            alt=""
+            loading="lazy"
+            aria-hidden="true"
+          /><i class="dark-shade"></i>
+          <div class="frame dark-inner">
+            <div class="dark-story">
+              <div class="section-kicker"><i></i>SAFELIGHT &nbsp;/&nbsp; 27-B</div>
+              <p class="dark-stage-label" id="dark-phase">显影盘 · 白纸入液</p>
+              <h2 id="dark-title">椅子在暗房里。</h2>
+              <p class="dark-narration" id="dark-text">
+                红灯下面，那把椅子正对着放大机。右扶手的红线还湿着。托盘里的家人转头看向镜头，椅子却朝着洗照片的人。
+              </p>
+              <div class="dark-steps" aria-label="查看暗房步骤">
+                <button data-phase="0" aria-pressed="true">显影</button
+                ><button data-phase="1" aria-pressed="false">停显</button
+                ><button data-phase="2" aria-pressed="false">定影</button>
+              </div>
+            </div>
+          </div>
+          <span class="dark-instruction">继续下翻，观察药盘里的影像</span
+          ><button class="dark-audio" data-ambience aria-pressed="false">
+            <span data-ambience-label>开启环境音</span>
+          </button>
         </div>
-        <div class="ledger"><div class="ledger-head"><span>雾隐山居 · 留言簿</span><span lang="en">GUEST RECORD</span></div>
-          <div class="log-entry"><time>16:40</time><p>下山时数了数，回来的石阶比上去时多了一级。</p></div>
-          <div class="log-entry"><time>21:15</time><p>门缝里塞着一张白天的客房照，是从窗外拍的。背面写着「四楼」。</p></div>
-          <div class="log-entry"><time>03:17</time><p>前台说这里没有四楼。那我窗外的走廊，是谁在走？</p></div>
-          <div class="ledger-tail"><span>房号</span><span class="handwritten">404</span><span class="ink-stamp">未退房</span></div>
+      </section>
+      <section class="delivery story-part" id="delivery" aria-labelledby="delivery-title">
+        <div class="frame">
+          <div class="section-kicker"><i></i>FINAL PRINT &nbsp;/&nbsp; 27-B</div>
+          <h2 id="delivery-title">现在，交哪一张？</h2>
+          <p class="delivery-lede">取件铃响了两次。柜台外的人说，她带了两只相框。你面前只有一只底片袋。</p>
+          <div class="decisions" role="group" aria-label="选择交付方式">
+            <button data-ending="order">
+              <span>照单冲印</span><strong>交付空椅那张</strong><small>按第二联，洗两份。</small>
+            </button>
+            <button data-ending="restore">
+              <span>照底片冲印</span><strong>留下椅子上的人</strong><small>把第 27 格完整放大。</small>
+            </button>
+            <button data-ending="both">
+              <span>原件留存</span><strong>封存两种底片</strong
+              ><small id="both-hint">取回两处可核对的原始痕迹。</small>
+            </button>
+          </div>
+          <div class="evidence-box">
+            <span>随工单留存的痕迹</span>
+            <div class="evidence-links">
+              <a data-proof="carbon" href="#carbon">复写联</a
+              ><a data-proof="negative" href="#negatives">底片伤痕</a
+              ><a data-proof="splice" href="#tape">磁带接点</a
+              ><a data-proof="letter" href="#letters">旧信透字</a>
+            </div>
+          </div>
+          <p id="decision-status" aria-live="polite"></p>
         </div>
-      </div>
-    </section>
-
-    <section class="watch" id="watch" aria-labelledby="watch-title">
-      <div class="wrap">
-        <div class="monitor-label"><span><i></i>夜间值守记录</span><span>CAM 04 · EAST WING</span></div>
-        <div class="monitor"><img src="./assets/corridor.webp" alt="夜视画面中，红灯照着一扇半开的门，门后站着一个瘦长的人影" loading="lazy">
-          <div class="scanlines" aria-hidden="true"></div><span class="monitor-time">03:17:04</span>
-          <div class="monitor-text"><p>四楼东廊 / 信号异常</p><h2 id="watch-title">走廊尽头，<br>有谁在等你。</h2></div>
-          <span class="reticle" aria-hidden="true"></span>
+      </section>
+      <section class="aftermath" id="aftermath" aria-labelledby="end-title" hidden>
+        <div class="frame aftermath-grid">
+          <div class="return-print">
+            <img id="return-photo" src="./assets/album/front.webp" alt="" loading="lazy" /><span
+              id="return-stamp"
+            ></span
+            ><span id="return-caption"></span>
+          </div>
+          <div class="return-copy">
+            <div class="section-kicker"><i></i>COLLECTION RECEIPT</div>
+            <h2 id="end-title" tabindex="-1"></h2>
+            <p id="end-text"></p>
+            <p id="end-last"></p>
+            <div class="return-actions"><a href="#coda" class="button rust">随取件人走到门外</a></div>
+          </div>
         </div>
-        <div class="watch-note"><span>值夜员批注</span><p>监控里的人一直站在四楼。刚才，门外的感应灯亮了。</p></div>
+      </section>
+      <section class="coda" id="coda" aria-labelledby="coda-title">
+        <img
+          src="./assets/album/window.webp"
+          alt="深夜关门后的照相馆，窗内留着藤椅，玻璃上映出一家人的影子"
+          loading="lazy"
+        /><i class="window-drop" aria-hidden="true"></i>
+        <div class="frame">
+          <div class="section-kicker"><i></i>AFTER CLOSING</div>
+          <h2 id="coda-title">门铃响了第三次。</h2>
+          <p id="coda-line">
+            你没有应声。隔着打烊的橱窗，能看见柜台前多出一个浅白的人形。雨水沿玻璃往下淌，只有它脸上的那一滴，慢慢往上走。
+          </p>
+          <div class="coda-actions">
+            <a id="coda-back" href="#delivery">回到交件台</a><button data-reset>重开这卷底片</button
+            ><button data-ambience aria-pressed="false"><span data-ambience-label>开启环境音</span></button>
+          </div>
+        </div>
+      </section>
+    </main>
+    <button id="archive-index" class="archive-index" aria-label="打开本卷档案索引" hidden>
+      <svg class="ico"><use href="#file" /></svg><span>底片袋</span><b>0 / 4</b>
+    </button>
+    <footer>
+      <div class="frame">
+        <span>拾相修复所 <small>SHIXIANG PHOTO LAB</small></span
+        ><button class="text-action" data-about>作品说明</button>
       </div>
-    </section>
-
-    <section class="threshold" id="threshold" aria-labelledby="ending-title">
-      <div class="ending-frame"><img class="ending-image" src="./assets/threshold.webp" alt="门已开了一道缝，一张灰白的脸贴在门外向里窥视" loading="lazy">
-        <div class="ending-veil"></div><div class="ending-copy wrap"><div class="eyebrow"><span class="rule"></span>ROOM 404</div><h2 id="ending-title">它在<br>门这边。</h2><p>门外响起了你自己的声音：「欢迎回来。」</p><a class="return" href="#home">回到清晨<svg class="icon"><use href="#compass"/></svg></a></div>
-        <button class="ending-sound" data-sound aria-pressed="false"><svg class="icon"><use href="#volume"/></svg><span>开启环境音</span></button>
+    </footer>
+    <dialog id="desk-dialog" aria-labelledby="desk-heading">
+      <div class="dialog-inner">
+        <div class="dialog-mast">
+          <span>SHIXIANG PHOTO LAB</span
+          ><button class="icon-button" id="dialog-close" aria-label="关闭窗口">
+            <svg class="ico"><use href="#close" /></svg>
+          </button>
+        </div>
+        <h2 id="desk-heading" tabindex="-1"></h2>
+        <div id="desk-content"></div>
       </div>
-    </section>
-  </main>
-  <dialog class="detail-dialog" id="detail-dialog" aria-labelledby="detail-heading"><button class="detail-close" aria-label="关闭体验详情"><svg class="icon"><use href="#close"/></svg></button><img class="detail-photo" alt=""><div class="detail-content"><div class="eyebrow dark-kicker detail-kicker"></div><h2 id="detail-heading"></h2><p class="detail-story"></p><div class="detail-info"><svg class="icon"><use href="#pin"/></svg><span></span></div><button class="detail-action"></button></div></dialog>
-  <dialog id="booking-dialog" aria-labelledby="booking-heading"></dialog>
-</body>
+    </dialog>
+  </body>
 </html>

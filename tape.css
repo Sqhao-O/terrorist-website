@@ -1,0 +1,565 @@
+#tape {
+  --tape-paper: #ede7d7;
+  --tape-faint: #c0c1b1;
+  --tape-rule: #636658;
+  --tape-mark: #e5a185;
+  display: block;
+  padding: clamp(4.75rem, 8vw, 8rem) 0;
+  color: var(--tape-paper);
+  background: radial-gradient(ellipse at 16% 49%, #42463b 0, #2c332b 42%, #242b26 85%);
+  border-block: 1px solid #75715d;
+}
+#tape [hidden] {
+  display: none !important;
+}
+#tape button,
+#tape input {
+  font: inherit;
+}
+#tape button {
+  color: inherit;
+  cursor: pointer;
+  border: 0;
+}
+#tape button:focus-visible,
+#tape input:focus-visible,
+.tape-evidence:focus-visible {
+  outline: 2px solid var(--tape-mark);
+  outline-offset: 4px;
+}
+.tape-wrap {
+  width: min(1120px, 88%);
+  margin-inline: auto;
+}
+.tape-heading {
+  max-width: 41rem;
+  margin-bottom: clamp(2rem, 4vw, 3.5rem);
+}
+#tape .tape-kicker {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  color: #e0ddca;
+  font: 500 0.8rem/1.3 var(--mono, "Courier New", monospace);
+  letter-spacing: 0.13em;
+}
+.tape-kicker i {
+  width: 1.75rem;
+  height: 1px;
+  background: var(--tape-mark);
+}
+.tape-kicker span {
+  padding-left: 0.3rem;
+  font-size: 0.72rem;
+}
+#tape h2 {
+  color: inherit;
+  margin: 0.85rem 0 1.1rem;
+  font-family: var(--serif, "Songti SC", "SimSun", serif);
+  font-size: clamp(2.5rem, 5.2vw, 4.5rem);
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+}
+#tape .tape-heading > p:last-child {
+  margin: 0;
+  color: var(--tape-faint);
+  font-size: 1rem;
+  line-height: 1.9;
+}
+.tape-desk {
+  display: grid;
+  grid-template-columns: 1.14fr 1fr;
+  gap: clamp(2rem, 6vw, 6rem);
+  align-items: start;
+}
+.tape-player {
+  align-self: start;
+  padding-top: 0.9rem;
+  min-width: 0;
+}
+.tape-cassette {
+  position: relative;
+  isolation: isolate;
+  aspect-ratio: 1.6;
+  width: 92%;
+  margin: 0.5rem auto 2.5rem;
+  transform: rotate(-3deg);
+  border-radius: 4%/6%;
+  background:
+    linear-gradient(116deg, #9a9b8661, transparent 25%, #0f110e4f 65%, transparent),
+    repeating-linear-gradient(0deg, #343931 0 1px, #3c4037 1px 2px, #363b32 2px 3px);
+  box-shadow:
+    inset 0 0 0 1px #979888,
+    inset 0 -4px 1px #1c201b,
+    inset 0 2px 2px #afb19b,
+    1px 2px #363b30,
+    2px 4px #191e19,
+    4px 9px 8px #13181388,
+    12px 22px 32px #12160f55;
+  container-type: inline-size;
+  user-select: none;
+}
+.tape-paper {
+  position: absolute;
+  inset: 8% 6.5% 24%;
+  border-radius: 2.5%/4%;
+  color: #39372a;
+  background:
+    repeating-linear-gradient(92deg, transparent 0 4px, #60594208 4px 5px),
+    linear-gradient(123deg, #c2b899, #e2d8bd 29%, #d8cbb0 67%, #b9ae91);
+  box-shadow:
+    0 0 0 1px #25281d,
+    0 0 0 3px #4b5045,
+    0 1px 0 4px #777965;
+}
+.tape-paper::before {
+  content: "";
+  position: absolute;
+  inset: 35% 0 31%;
+  background: linear-gradient(
+    to bottom,
+    #83513c 0 24%,
+    transparent 24% 28%,
+    #aa6a4f 28% 53%,
+    transparent 53% 57%,
+    #b78060 57% 80%,
+    transparent 80%
+  );
+}
+.tape-paper-title,
+.tape-paper-foot {
+  position: absolute;
+  inset: 5% 4.5% auto;
+  display: flex;
+  align-items: center;
+  gap: 3.4%;
+  white-space: nowrap;
+  line-height: 1;
+}
+.tape-paper-title span {
+  color: #393c32;
+  font-size: clamp(0.67rem, 3.2cqw, 1.15rem);
+  font-weight: 650;
+  letter-spacing: 0.16em;
+}
+.tape-paper-title b {
+  background: #383a30;
+  color: #ddd3b8;
+  border-radius: 2px;
+  font:
+    700 clamp(1rem, 6cqw, 2.1rem)/1 "Courier New",
+    monospace;
+  padding: 0.05em 0.22em;
+}
+.tape-paper-title i {
+  margin-left: auto;
+  color: #575247;
+  font:
+    italic 600 clamp(0.7rem, 3.4cqw, 1.3rem)/1 Georgia,
+    serif;
+  transform: rotate(-4deg);
+}
+.tape-window {
+  position: absolute;
+  inset: 33% 11% 27%;
+  overflow: hidden;
+  border-radius: 2%/8%;
+  border: 1px solid #181d16;
+  background:
+    radial-gradient(circle at 18% 50%, #332b23 0 14%, #564635 14.5% 19%, transparent 20%),
+    radial-gradient(circle at 82% 50%, #332b23 0 12%, #594b3a 12.5% 16%, transparent 17%),
+    linear-gradient(153deg, #737867 2%, #454939 28%, #565746 63%, #2e352c);
+  box-shadow:
+    0 0 0 2px #484c3f,
+    inset 0 3px 5px #10170faf;
+}
+.tape-window::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    112deg,
+    transparent 16%,
+    #f7f3d50f 16.5% 18%,
+    transparent 18.5% 45%,
+    #f4efd30f 46% 62%,
+    transparent 63%
+  );
+  pointer-events: none;
+}
+.tape-film {
+  position: absolute;
+  inset: 28% 36%;
+  border-block: 1px solid #b0af8d;
+  background: repeating-linear-gradient(to right, #abb193 0 1px, transparent 1px 11%);
+  opacity: 0.8;
+}
+.tape-reel {
+  position: absolute;
+  top: 50%;
+  width: 16%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  transform: translateY(-50%);
+  background:
+    radial-gradient(circle, #20271d 0 21%, transparent 22% 51%, #b7b498 52% 69%, #656856 70%),
+    repeating-conic-gradient(from 12deg, #33382b 0 25deg, #cac5a8 27deg 55deg, #747462 57deg 60deg);
+  box-shadow:
+    0 0 0 3px #282e22,
+    0 0 0 5px #9a9b806e;
+}
+.tape-reel.left {
+  left: 10%;
+}
+.tape-reel.right {
+  right: 10%;
+}
+.tape-playing .tape-reel {
+  animation: tape-turn 3s linear infinite;
+}
+@keyframes tape-turn {
+  to {
+    transform: translateY(-50%) rotate(360deg);
+  }
+}
+.tape-paper-foot {
+  inset: auto 5% 4%;
+  justify-content: space-between;
+  border-bottom: 1px solid #6d6e56;
+  padding-bottom: 1%;
+}
+.tape-paper-foot span:last-child {
+  font:
+    600 clamp(0.55rem, 2.4cqw, 0.9rem)/1 "Courier New",
+    monospace;
+  letter-spacing: 0.1em;
+}
+.tape-scribble {
+  color: #43473b;
+  font:
+    italic 600 clamp(0.8rem, 4cqw, 1.6rem)/1.2 "KaiTi",
+    "STKaiti",
+    "SimSun",
+    serif;
+  transform: rotate(-3deg);
+  letter-spacing: 0.15em;
+}
+.tape-lip {
+  position: absolute;
+  inset: 80% 16% 1%;
+  clip-path: polygon(6% 0, 94% 0, 100% 100%, 0% 100%);
+  background: linear-gradient(#676b5a, #44493d 6%, #484c40 70%, #353a30);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  padding: 0 4% 2%;
+}
+.tape-lip i {
+  width: 8%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #1c221b;
+  box-shadow:
+    inset 0 2px 2px #090d08,
+    0 1px 1px #989a85;
+}
+.tape-lip i:nth-child(2),
+.tape-lip i:nth-child(3) {
+  border-radius: 2px;
+  width: 5%;
+}
+.tape-screw {
+  position: absolute;
+  width: 2.4%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 1px solid #151b13;
+  background:
+    linear-gradient(32deg, transparent 41%, #2f332b 43% 54%, transparent 56%),
+    linear-gradient(118deg, transparent 40%, #373c32 42% 55%, transparent 57%),
+    linear-gradient(125deg, #a1a08b, #595e50);
+  box-shadow: 0 1px #818573;
+}
+.tape-screw.tl {
+  left: 2%;
+  top: 3%;
+}
+.tape-screw.tr {
+  right: 2%;
+  top: 3%;
+}
+.tape-screw.bl {
+  left: 2%;
+  bottom: 3%;
+}
+.tape-screw.br {
+  right: 2%;
+  bottom: 3%;
+}
+.tape-transport {
+  border-block: 1px solid var(--tape-rule);
+  padding: 1rem 0;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+#tape .tape-play {
+  padding: 0.72rem 1.1rem;
+  background: var(--tape-paper);
+  color: #30372c;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  line-height: 1.2;
+  font-size: 0.92rem;
+  flex: none;
+}
+.tape-play i {
+  width: 0.8em;
+  height: 0.9em;
+  background: currentColor;
+  clip-path: polygon(0 0, 100% 50%, 0 100%);
+}
+.tape-playing .tape-play i {
+  clip-path: polygon(0 0, 38% 0, 38% 100%, 62% 100%, 62% 0, 100% 0, 100% 100%, 0 100%);
+}
+.tape-scrub {
+  display: block;
+  flex: 1;
+  min-width: 0;
+}
+.tape-scrub-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  color: var(--tape-faint);
+  font-size: 0.8rem;
+  line-height: 1.2;
+}
+.tape-scrub output {
+  font:
+    0.8rem/1.2 "Courier New",
+    monospace;
+  font-variant-numeric: tabular-nums;
+}
+.tape-scrub input {
+  display: block;
+  appearance: none;
+  padding: 0;
+  margin: 0.12rem 0 0;
+  height: 20px;
+  width: 100%;
+  background: transparent;
+  accent-color: var(--tape-mark);
+  cursor: pointer;
+}
+.tape-scrub input::-webkit-slider-runnable-track {
+  height: 3px;
+  background: linear-gradient(to right, var(--tape-mark) var(--tape-fill), #76796b var(--tape-fill));
+}
+.tape-scrub input::-webkit-slider-thumb {
+  width: 12px;
+  height: 12px;
+  appearance: none;
+  border-radius: 50%;
+  background: var(--tape-paper);
+  margin-top: -4.5px;
+}
+.tape-scrub input::-moz-range-track {
+  height: 3px;
+  background: #76796b;
+}
+.tape-scrub input::-moz-range-progress {
+  height: 3px;
+  background: var(--tape-mark);
+}
+.tape-scrub input::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--tape-paper);
+}
+.tape-error {
+  color: var(--tape-mark);
+  margin: 0.8rem 0 0;
+}
+.tape-document {
+  min-width: 0;
+}
+.tape-sides {
+  display: inline-flex;
+  padding: 3px;
+  gap: 2px;
+  border: 1px solid #6a6b5c;
+}
+#tape .tape-sides button {
+  padding: 0.52rem 0.95rem;
+  background: transparent;
+  color: var(--tape-faint);
+  font-size: 0.9rem;
+  line-height: 1.3;
+}
+#tape .tape-sides [aria-pressed="true"] {
+  background: #d7d1b9;
+  color: #282e24;
+}
+.tape-doc-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.7rem;
+  margin: 1.45rem 0 0.5rem;
+  border-bottom: 1px solid var(--tape-rule);
+  padding-bottom: 0.65rem;
+}
+#tape .tape-doc-head h3 {
+  margin: 0;
+  color: var(--tape-paper);
+  font: 500 1.45rem/1.3 var(--serif, "Songti SC", serif);
+}
+.tape-doc-head span {
+  color: var(--tape-faint);
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+}
+.tape-cues {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+#tape .tape-cues button {
+  display: flex;
+  align-items: baseline;
+  gap: 0.85rem;
+  width: 100%;
+  padding: 0.35rem 0.4rem;
+  background: none;
+  border-inline-start: 2px solid transparent;
+  color: #d2d2c3;
+  text-align: start;
+  font-size: 0.96rem;
+  line-height: 1.55;
+}
+#tape .tape-cues button:hover {
+  color: #fff8e7;
+  background: #aaa38c0c;
+}
+#tape .tape-cues button[aria-current] {
+  border-color: var(--tape-mark);
+  background: #d9c9a513;
+  color: #f2e6d4;
+}
+.tape-cues time {
+  color: #b8bca8;
+  font:
+    0.75rem/1.5 "Courier New",
+    monospace;
+  white-space: nowrap;
+}
+#tape .tape-match {
+  display: block;
+  color: var(--tape-mark);
+  background: transparent;
+  border-bottom: 1px solid #ce9d7f;
+  padding: 0.45rem 0 0.23rem;
+  margin: 0.75rem 0 0 0.5rem;
+  font-size: 0.91rem;
+}
+.tape-evidence {
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: minmax(12rem, 0.8fr) 1.2fr;
+  align-items: center;
+  gap: 2rem;
+  padding: 1.5rem;
+  border-block: 1px solid var(--tape-rule);
+  background: #151c1873;
+}
+.tape-evidence p {
+  margin: 0;
+  color: var(--tape-faint);
+  font-size: 0.96rem;
+  line-height: 1.75;
+}
+#tape .tape-proof-title {
+  color: var(--tape-paper);
+  font: 500 1.55rem/1.4 var(--serif, "Songti SC", serif);
+  margin: 0 0 0.4rem;
+}
+.tape-traces > div {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin: 0.3rem 0;
+}
+.tape-traces b,
+.tape-traces em {
+  color: #d6ccb2;
+  font:
+    0.75rem/1 "Courier New",
+    monospace;
+  white-space: nowrap;
+}
+.tape-traces span {
+  height: 30px;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 1px;
+}
+.tape-traces i {
+  min-width: 0;
+  flex: 1;
+  background: #c0bd99;
+}
+.tape-traces > div:last-child i {
+  background: var(--tape-mark);
+}
+.tape-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  margin-top: 1.7rem;
+  color: var(--tape-faint);
+  font-size: 0.82rem;
+}
+#tape .tape-bottom button {
+  padding: 0.5rem 0.7rem;
+  background: none;
+  border: 1px solid var(--tape-rule);
+  line-height: 1.35;
+}
+@media (max-width: 700px) {
+  .tape-wrap {
+    width: min(90%, 36rem);
+  }
+  .tape-desk {
+    grid-template-columns: 1fr;
+    gap: 1.8rem;
+  }
+  .tape-player {
+    padding-top: 0;
+  }
+  .tape-cassette {
+    max-width: 25rem;
+    margin-bottom: 1.8rem;
+  }
+  .tape-evidence {
+    grid-template-columns: 1fr;
+    gap: 0.9rem;
+    padding: 1.15rem;
+  }
+  .tape-doc-head {
+    margin-top: 0.9rem;
+  }
+  .tape-cues time {
+    font-size: 0.75rem;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tape-playing .tape-reel {
+    animation: none;
+  }
+}
