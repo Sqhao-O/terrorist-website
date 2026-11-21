@@ -1,0 +1,227 @@
+#booking-dialog {
+  --booking-paper: #f5f2e9;
+  --booking-ink: #21382d;
+  --booking-muted: #576359;
+  --booking-rule: #c2c4b5;
+  box-sizing: border-box;
+  width: min(29rem, calc(100% - 2rem));
+  max-width: none;
+  max-height: calc(100dvh - 2rem);
+  inset: 0;
+  margin: auto;
+  padding: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  color: var(--booking-ink);
+  color-scheme: light;
+  background: var(--booking-paper);
+  border: 1px solid #d2d3c4;
+  border-radius: 2px;
+  box-shadow: 0 2rem 6rem #06130eb3;
+  font-family: Inter, "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
+  text-align: left;
+}
+
+#booking-dialog::backdrop {
+  background: rgb(4 17 13 / 69%);
+}
+
+#booking-dialog [hidden] {
+  display: none;
+}
+
+#booking-dialog .booking-sheet {
+  padding: clamp(1.5rem, 6vw, 2.6rem);
+  background: linear-gradient(135deg, #faf8f0, var(--booking-paper) 65%);
+}
+
+#booking-dialog .booking-mast {
+  display: flex;
+  min-height: 2.6rem;
+  margin-bottom: 1.65rem;
+  padding-bottom: .6rem;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--booking-rule);
+}
+
+#booking-dialog .booking-mast > span {
+  color: var(--booking-muted);
+  font-size: .75rem;
+  font-weight: 600;
+  letter-spacing: .19em;
+}
+
+#booking-dialog .booking-close {
+  position: relative;
+  width: 2.75rem;
+  height: 2.75rem;
+  margin: -.4rem -.65rem -.4rem 0;
+  background: transparent;
+  color: var(--booking-ink);
+  border: 0;
+  cursor: pointer;
+}
+
+#booking-dialog .booking-close::before,
+#booking-dialog .booking-close::after {
+  position: absolute;
+  content: "";
+  left: 50%;
+  top: 50%;
+  width: 1.25rem;
+  height: 1px;
+  background: currentColor;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+#booking-dialog .booking-close::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+#booking-dialog h2 {
+  margin: 0;
+  color: var(--booking-ink);
+  font: 500 clamp(2rem, 5vw, 2.55rem)/1.3 "Songti SC", "Noto Serif CJK SC", SimSun, serif;
+  letter-spacing: .05em;
+}
+
+#booking-dialog :is(.booking-intro, .booking-message) {
+  margin: .75rem 0 1.7rem;
+  color: var(--booking-muted);
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+#booking-dialog .booking-fields {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  gap: .9rem;
+  margin: 0 0 1.9rem;
+}
+
+#booking-dialog .booking-fields label {
+  display: grid;
+  min-width: 0;
+  gap: .5rem;
+  font-size: .875rem;
+  letter-spacing: .03em;
+}
+
+#booking-dialog :is(input, select) {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  min-width: 0;
+  height: 2.9rem;
+  margin: 0;
+  padding: .5rem .7rem;
+  color: var(--booking-ink);
+  background: #fbfaf4;
+  border: 1px solid #aeb7a8;
+  border-radius: 1px;
+  font: inherit;
+  font-size: 1rem;
+  text-align: left;
+}
+
+#booking-dialog .booking-select-wrap {
+  position: relative;
+}
+
+#booking-dialog select {
+  appearance: none;
+  padding-right: 1.8rem;
+}
+
+#booking-dialog .booking-select-wrap::after {
+  position: absolute;
+  top: 42%;
+  right: .85rem;
+  width: .38rem;
+  height: .38rem;
+  border: solid var(--booking-ink);
+  border-width: 0 1px 1px 0;
+  transform: rotate(45deg);
+  pointer-events: none;
+  content: "";
+}
+
+#booking-dialog .booking-action {
+  box-sizing: border-box;
+  display: flex;
+  width: 100%;
+  min-height: 3rem;
+  align-items: center;
+  justify-content: center;
+  padding: .7rem 1rem;
+  color: #fffdf5;
+  background: #294334;
+  border: 1px solid #294334;
+  border-radius: 1px;
+  font: inherit;
+  font-size: .96rem;
+  font-weight: 500;
+  letter-spacing: .09em;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#booking-dialog .booking-action:hover {
+  background: #193427;
+}
+
+#booking-dialog :is(a, button, input, select):focus-visible {
+  outline: 2px solid #657c62;
+  outline-offset: 3px;
+}
+
+#booking-dialog h2:focus {
+  outline: none;
+}
+
+#booking-dialog .booking-key {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-top: 1.45rem;
+  padding: .65rem 0;
+  border-block: 1px solid var(--booking-rule);
+}
+
+#booking-dialog .booking-key span,
+#booking-dialog .booking-details dt {
+  color: var(--booking-muted);
+  font-size: .875rem;
+}
+
+#booking-dialog .booking-key strong {
+  color: #723f32;
+  font: 400 3.85rem/1.2 Georgia, "Times New Roman", serif;
+  letter-spacing: -.04em;
+}
+
+#booking-dialog .booking-details {
+  margin: 1.2rem 0;
+}
+
+#booking-dialog .booking-details > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: .75rem;
+  padding: .25rem 0;
+}
+
+#booking-dialog .booking-details dd {
+  margin: 0;
+  text-align: right;
+}
+
+@media (max-width: 24rem) {
+  #booking-dialog .booking-fields {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
